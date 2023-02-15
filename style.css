@@ -1,0 +1,82 @@
+* {
+    box-sizing: border-box;
+    color: white;
+}
+
+body{
+    margin: 0px;
+    width: 320px;
+    height: 780px;
+    background-color: #23252C;
+    text-align:center;
+}
+.linkedin-btn{
+    background-color: #297FE5;
+    height: 34px;
+    width: 115px;
+    border-radius: 4px;
+    color: white;
+  /*  background-image: url(https://cdn-icons-png.flaticon.com/512/174/174857.png);
+  background-size:16px;
+    background-repeat:no-repeat;*/
+    padding: 10px;
+    margin: 0.5rem;
+}
+.linkedin-btn > img{
+    height: 13.3px;
+    width: 13.3px;
+    border-radius: 2px;
+}
+.email-btn{
+    background-color: #FFFFFF;
+    height: 34px;
+    width: 115px;
+    border-radius: 4px;
+    color: white;
+    padding: 10px;
+    color: #23252C;
+    
+}
+.email-btn > img{
+    height: 13.3px;
+    width: 13.3px;
+    border-radius: 2px;
+}
+.about-interest{
+    padding: 1em; 
+    word-spacing: 0.1em;
+}
+.about-interest>h2{
+    text-align: center;
+    padding: 1em;
+}
+p{
+    
+    text-align: justify;
+    size: 10.24px;
+    
+}
+footer{
+    
+    background-color: #161619;
+    width: 317px;
+    height: 64px;
+    align-items: center;
+    padding: 1em 1em 1em 1em; 
+}
+footer>button>img{
+    display: flex;
+    justify-content: space-between;
+    width: 25px;
+    height: 25px; 
+    border-radius: 2rem;
+    background-color: #918E9B;
+    
+}
+footer>button{
+margin: 10px;
+border-radius: 1ex;
+}
+h3{
+    color: #F3BF99;
+}
