@@ -1,6 +1,6 @@
 const Portfolio = () => {
     return ( 
-        <div>Intro</div>
+        <div id="portfolio" className="min-h-[80svh]">Portfolio</div>
      );
 }
  

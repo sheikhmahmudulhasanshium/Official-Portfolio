@@ -42,7 +42,7 @@ export default function RootLayout({
         content={"/profile.png"}
       />
       <meta property="twitter:title" content="Sheikh Mahmudul Hasan Shium"></meta>
-      <meta property="twitter:description" content="Software Engineer  "></meta>
+      <meta property="twitter:description" content="Software Engineer"></meta>
       <meta property="og:site_name" content="Sheikh Mahmudul Hasan Shium | Top Software Engineer Near You"></meta>
       <meta property="twitter:image" content={"/profile.png"}></meta>
       <meta property="og:url" content="https://iamshium.vercel.app/"></meta>
