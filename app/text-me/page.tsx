@@ -1,6 +1,7 @@
 import Image from "next/image";
 import WhatsappIcon from "../../public/whatsapp.png"
 import GMailIcon from "../../public/Gmail.png"
+import Link from "next/link";
 
 const TextMe = () => {
     // Pre-filled message for WhatsApp
@@ -20,16 +21,16 @@ const TextMe = () => {
                     If booking calls with strangers from the internet is not your cup of tea ☕️, great news - you can always text or email me first!
                 </p>
                 <div className="flex justify-center w-6/12 items-center gap-8">
-                    <a href={`https://wa.me/8801729771453?text=${encodedMessage}`}>
+                    <Link href={`https://wa.me/8801729771453?text=${encodedMessage}`} className="hover:opacity-40">
                         <Image 
                             alt="Chat on WhatsApp" 
                             src={WhatsappIcon} 
                             width={40} 
                             height={40} 
                         />
-                    </a>
-                    <a 
-                        href={`mailto:officials.shium@gmail.com?subject=${encodedSubject}&body=${encodedMessage}`} 
+                    </Link>
+                    <Link 
+                        href={`mailto:officials.shium@gmail.com?subject=${encodedSubject}&body=${encodedMessage}`} className="hover:opacity-40"
                         target="_blank" 
                         rel="noopener noreferrer"
                     >
@@ -39,10 +40,15 @@ const TextMe = () => {
                             width={40} 
                             height={40} 
                         />
-                    </a>
+                    </Link>
                 </div>
-                
+                <div className="mt-24 flex flex-col items-center justify-center gap-4">
+                    <h1 className="italic font-thin font-serif text-2xl">Sheikh Mahmudul Hasan Shium</h1>
+                    <h4 className="text-xl font-bold">Software Engineer</h4>
+                    <p>Next.JS || React.JS</p>
+                </div>
             </div>
+            
         </div>
     );
 }
