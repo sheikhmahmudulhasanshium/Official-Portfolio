@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import { GoogleTagManager } from '@next/third-parties/google'
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -27,6 +28,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
       <link rel="icon" href="/favicon.ico" type="image/x-icon"/>
+      <GoogleTagManager gtmId="G-P72CS8VFGE" />
 
       <meta
         property="og:title"
