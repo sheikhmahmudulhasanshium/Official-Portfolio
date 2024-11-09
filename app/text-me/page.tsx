@@ -17,7 +17,7 @@ const TextMe = () => {
             <div className="flex flex-col justify-between items-center gap-4">
                 <h4 className="font-mono text-xl font-bold">DONT&apos;T LIKE CALLS?</h4>
                 <h2 className="text-3xl font-extrabold">Text me! 👋</h2>
-                <p className="text-center mb-8">
+                <p className="text-center mb-8 lg:w-8/12">
                     If booking calls with strangers from the internet is not your cup of tea ☕️, great news - you can always text or email me first!
                 </p>
                 <div className="flex justify-center w-6/12 items-center gap-8">
@@ -42,8 +42,8 @@ const TextMe = () => {
                         />
                     </Link>
                 </div>
-                <div className="mt-24 flex flex-col items-center justify-center gap-4">
-                    <h1 className="italic font-thin font-serif text-2xl">Sheikh Mahmudul Hasan Shium</h1>
+                <div className="mt-24 flex flex-col items-center justify-center  gap-4">
+                    <h1 className="italic font-thin font-serif text-2xl text-center">Sheikh Mahmudul Hasan Shium</h1>
                     <h4 className="text-xl font-bold">Software Engineer</h4>
                     <p>Next.JS || React.JS</p>
                 </div>
