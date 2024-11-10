@@ -53,7 +53,7 @@ export default function RootLayout({
 
         {/* Open Graph Meta Tags */}
         <meta property="og:title" content="Sheikh Mahmudul Hasan Shium" />
-        <meta property="og:description" content="Sheikh Mahmudul Hasan Shium is a passionate software engineer with expertise in full-stack development, web technologies, and delivering high-quality software solutions." />
+        <meta property="og:description" content="Sheikh Mahmudul Hasan Shium is a passionate software engineer with expertise in front-end development, web technologies, and delivering high-quality software solutions." />
         <meta property="og:url" content="https://iamshium.vercel.app/" />
         <meta property="og:site_name" content="Sheikh Mahmudul Hasan Shium | Top Software Engineer Near You" />
         <meta property="og:image" content="/profile.png" />

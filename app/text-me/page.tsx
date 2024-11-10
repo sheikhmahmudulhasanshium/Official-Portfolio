@@ -21,16 +21,17 @@ const TextMe = () => {
                     If booking calls with strangers from the internet is not your cup of tea ☕️, great news - you can always text or email me first!
                 </p>
                 <div className="flex justify-center w-6/12 items-center gap-8">
-                    <Link href={`https://wa.me/8801729771453?text=${encodedMessage}`} className="hover:opacity-40">
+                    <Link href={`https://wa.me/8801729771453?text=${encodedMessage}`} className="hover:opacity-40 hover:scale-125">
                         <Image 
                             alt="Chat on WhatsApp" 
                             src={WhatsappIcon} 
                             width={40} 
                             height={40} 
+                            className="hover:opacity-40 "
                         />
                     </Link>
                     <Link 
-                        href={`mailto:officials.shium@gmail.com?subject=${encodedSubject}&body=${encodedMessage}`} className="hover:opacity-40"
+                        href={`mailto:officials.shium@gmail.com?subject=${encodedSubject}&body=${encodedMessage}`} className="hover:opacity-40 hover:scale-125"
                         target="_blank" 
                         rel="noopener noreferrer"
                     >
@@ -38,7 +39,8 @@ const TextMe = () => {
                             alt="Gmail" 
                             src={GMailIcon} 
                             width={40} 
-                            height={40} 
+                            height={40}
+                            className="hover:opacity-40" 
                         />
                     </Link>
                 </div>
