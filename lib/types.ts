@@ -5,3 +5,9 @@ export interface PersonalInterest {
     icon: string;
   }
   
+  export interface Pricing {
+    icon: string;
+    iconLink: string;
+    title: string;
+    description:  string;
+}
