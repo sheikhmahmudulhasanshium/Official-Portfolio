@@ -23,7 +23,7 @@ const Navbar = () => {
                     <Link href="#" className="flex ml-6 items-center justify-center ">
                         <p className="italic font-thin font-serif">Shium</p>
                     </Link>
-                    <Link href="#reviews">Reviews</Link>
+                    {/*<Link href="#reviews">Reviews</Link>*/}
                     <Link href="#portfolio">Portfolio</Link>
                     <Link href="#pricing">Pricing</Link>
                     <Link href="#about-me">Me</Link>

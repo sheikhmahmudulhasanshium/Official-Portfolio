@@ -1,7 +1,7 @@
-import type { Metadata } from "next";
+import { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import { GoogleTagManager } from '@next/third-parties/google'
+import { GoogleTagManager } from '@next/third-parties/google';
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -17,6 +17,7 @@ const geistMono = localFont({
 export const metadata: Metadata = {
   title: "Sheikh Mahmudul Hasan Shium",
   description: "Sheikh Mahmudul Hasan Shium is a passionate software engineer with expertise in full-stack development, web technologies, and delivering high-quality software solutions. 📧 officials.shium@gmail.com",
+  metadataBase: new URL("https://iamshium.vercel.app/"),  // Add this line
   openGraph: {
     title: "Sheikh Mahmudul Hasan Shium",
     description: "Sheikh Mahmudul Hasan Shium is a passionate software engineer with expertise in full-stack development, web technologies, and delivering high-quality software solutions.",
@@ -29,28 +30,23 @@ export const metadata: Metadata = {
         alt: "Sheikh Mahmudul Hasan Shium",
       },
     ],
-    siteName: "Sheikh Mahmudul Hasan Shium | Top Software Engineer Near You", // Correct property name here
+    siteName: "Sheikh Mahmudul Hasan Shium | Top Software Engineer Near You",
   },
   twitter: {
     card: "summary_large_image",
     title: "Sheikh Mahmudul Hasan Shium",
     description: "Sheikh Mahmudul Hasan Shium is a passionate software engineer with expertise in full-stack development, web technologies, and delivering high-quality software solutions.",
-    images: ["/profile.png"], // Correct property name here
+    images: ["/profile.png"],
     creator: "@shium",
   },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
       <head>
         <link rel="icon" href="/favicon.ico" type="image/x-icon" />
         <GoogleTagManager gtmId="G-P72CS8VFGE" />
-
         {/* Open Graph Meta Tags */}
         <meta property="og:title" content="Sheikh Mahmudul Hasan Shium" />
         <meta property="og:description" content="Sheikh Mahmudul Hasan Shium is a passionate software engineer with expertise in front-end development, web technologies, and delivering high-quality software solutions." />
@@ -61,15 +57,13 @@ export default function RootLayout({
         <meta property="og:image:type" content="image/png" />
         <meta property="og:image:width" content="800" />
         <meta property="og:image:height" content="800" />
-
         {/* Twitter Meta Tags */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Sheikh Mahmudul Hasan Shium" />
         <meta name="twitter:description" content="Sheikh Mahmudul Hasan Shium is a passionate software engineer with expertise in full-stack development, web technologies, and delivering high-quality software solutions." />
         <meta name="twitter:image" content="/profile.png" />
-        <meta name="twitter:creator" content="@shium" />
+        <meta name="twitter:creator" content="@skshium" />
         <meta name="twitter:site" content="@shium" />
-
         {/* Optional: Facebook verification */}
         <meta property="fb:app_id" content="3813506352229130" />
       </head>
