@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const Navbar = () => {
     return ( 
-        <nav className="flex fixed top-8 left-0 right-0 z-30 justify-center items-center">
+        <nav className="flex fixed top-8 left-0 right-0 z-30 justify-center items-center" >
             {/* Visible on small and medium screens */}
             <div className="block lg:hidden justify-center w-10/12 min-w-max rounded-full   from-accent bg-gradient-to-tl to-bg-white border-green-200 border">
                 <div className="flex justify-between items-center px-6  text-xl py-4 gap-2">
