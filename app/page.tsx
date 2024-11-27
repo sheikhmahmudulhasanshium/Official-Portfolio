@@ -35,11 +35,11 @@ export default function Home() {
   return (
     <div className='flex flex-col justify-center items-center min-w-screen max-w-full w-full relative z-0 overflow-x-hidden min-h-screen'>
       {/* Wrap sections that you want to animate */}
-      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }}>
+      <motion.div initial={{ opacity: 0.5 }} animate={{ opacity: 1 }} transition={{ duration: 1 }}>
         <Navbar />
       </motion.div>
 
-      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 0.5 }}>
+      <motion.div initial={{ opacity: 0.5 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 1.5 }}>
         <Body />
       </motion.div>
     </div>
