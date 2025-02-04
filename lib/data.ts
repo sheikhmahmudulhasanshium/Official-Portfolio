@@ -94,6 +94,21 @@ export const projectsData: (Projects)[] = [
   },
   {
     id: "1",
+    name: "Resogram",
+    tags: ["Website"],
+    image: "",
+    projectURL: "https://www.resogram.com/",
+    description: "Bangladesh's first social media platform for researchers. It's like instagram but for research.",
+    LogoUrl: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM5ZjdhZWEiIHN0cm9rZS13aWR0aD0iMS4xMjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgY2xhc3M9Imx1Y2lkZSBsdWNpZGUtYm9vay1vcGVuIj48cGF0aCBkPSJNMTIgN3YxNCIvPjxwYXRoIGQ9Ik0zIDE4YTEgMSAwIDAgMS0xLTFWNGExIDEgMCAwIDEgMS0xaDVhNCA0IDAgMCAxIDQgNCA0IDQgMCAwIDEgNC00aDVhMSAxIDAgMCAxIDEgMXYxM2ExIDEgMCAwIDEtMSAxaC02YTMgMyAwIDAgMC0zIDMgMyAzIDAgMCAwLTMtM3oiLz48L3N2Zz4=",
+    techStack: [
+      { name: "Next.JS", logoUrl: "https://camo.githubusercontent.com/26d06a6572aa5d9ecdb699add71d40e57aefe8244c6306ba58a70aee6ad5123c/68747470733a2f2f6173736574732e76657263656c2e636f6d2f696d6167652f75706c6f61642f76313636323133303535392f6e6578746a732f49636f6e5f6c696768745f6261636b67726f756e642e706e67" },
+      { name: "TypeScript", logoUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Typescript_logo_2020.svg/120px-Typescript_logo_2020.svg.png" },
+      { name: "Firebase", logoUrl: "https://firebase.google.com/static/images/brand-guidelines/logo-logomark.png" },
+      { name: "Nest.JS", logoUrl: "https://nestjs.com/logo-small-gradient.d792062c.svg" }
+    ],
+  },
+  {
+    id: "2",
     name: "Movie Marathon",
     tags: ["Website"],
     LogoUrl: "https://raw.githubusercontent.com/sheikhmahmudulhasanshium/movie-marathon/refs/heads/main/public/images/logo-2-transparent.png",
@@ -107,7 +122,7 @@ export const projectsData: (Projects)[] = [
     ],
   },
   {
-    id: "2",
+    id: "3",
     name: "Movie Marathon 2",
     tags: ["Website"],
     LogoUrl: "https://raw.githubusercontent.com/sheikhmahmudulhasanshium/movie-marathon-2/refs/heads/main/public/logo-2-transparent.png",
@@ -122,7 +137,7 @@ export const projectsData: (Projects)[] = [
     ],
   },
   {
-    id: "3",
+    id: "4",
     name: "Movie Marathon 3",
     tags: ["Website"],
     LogoUrl: "https://raw.githubusercontent.com/sheikhmahmudulhasanshium/movie-marathon-3/refs/heads/main/public/logo.png",
@@ -138,7 +153,7 @@ export const projectsData: (Projects)[] = [
     ],
   },
   {
-    id: "4",
+    id: "5",
     name: "E-Commerce Website Maker",
     tags: ["Website"],
     LogoUrl: "/e-commerce.png",
@@ -189,7 +204,7 @@ export const projectsData: (Projects)[] = [
     ],
   },
   {
-    id: "5",
+    id: "6",
     name: "Discord Clone",
     tags: ["Website"],
     LogoUrl: "/discord-by-shium.png",

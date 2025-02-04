@@ -7,7 +7,7 @@ import TextMe from "../text-me/page";
 
 const Body=()=> {
   return (
-    <main className="flex flex-col justify-center items-center w-full min-h-screen">
+    <main className="flex flex-col justify-between items-center">
       <Intro/>
       <AboutMe/>
       <Pricing/>

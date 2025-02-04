@@ -72,7 +72,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         {/* Optional: Facebook verification */}
         <meta property="fb:app_id" content="3813506352229130" />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col justify-between items-center min-h-screen w-full relative z-0`}>
         {children}
       </body>
     </html>

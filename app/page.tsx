@@ -33,13 +33,13 @@ export default function Home() {
   useSmoothScroll();  // Call the hook
 
   return (
-    <div className='flex flex-col justify-center items-center min-w-screen max-w-full w-full relative z-0 overflow-x-hidden min-h-screen'>
+    <div className='className="flex flex-col justify-between items-center w-full'>
       {/* Wrap sections that you want to animate */}
       <motion.div initial={{ opacity: 0.5 }} animate={{ opacity: 1 }} transition={{ duration: 1 }}>
         <Navbar />
       </motion.div>
 
-      <motion.div initial={{ opacity: 0.5 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 1.5 }}>
+      <motion.div initial={{ opacity: 0.5 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 1.5 }} className='w-full flex justify-between items-center pt-16'>
         <Body />
       </motion.div>
     </div>
