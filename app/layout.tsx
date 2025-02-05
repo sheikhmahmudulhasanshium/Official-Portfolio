@@ -1,18 +1,8 @@
 import { Metadata } from "next";
-import localFont from "next/font/local";
 import "./globals.css";
 import { GoogleTagManager } from '@next/third-parties/google';
+import ThemeProvider from "@/components/theme-provider";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
 
 export const metadata: Metadata = {
   title: "Sheikh Mahmudul Hasan Shium",
@@ -43,7 +33,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
+    <html lang="en" >
       <head>
       <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
       <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
@@ -72,8 +62,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         {/* Optional: Facebook verification */}
         <meta property="fb:app_id" content="3813506352229130" />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col justify-between items-center min-h-screen w-full relative z-0`}>
-        {children}
+      <body  suppressHydrationWarning> 
+        <ThemeProvider >{children}</ThemeProvider>
       </body>
     </html>
   );

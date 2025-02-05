@@ -1,20 +1,27 @@
 import AboutMe from "../about-me/page";
-import Intro from "../components/intro";
 import Portfolio from "../portfolio/page";
 import Pricing from "../pricing/page";
-//import Reviews from "../reviews/page";
 import TextMe from "../text-me/page";
+import Intro from "./intro";
+import Navbar from "./navbar";
+//import Reviews from "../reviews/page";
 
-const Body=()=> {
-  return (
-    <main className="flex flex-col justify-between items-center">
-      <Intro/>
-      <AboutMe/>
-      <Pricing/>
-      {/*<Reviews/>*/}
-      <Portfolio/>
-      <TextMe/>
-    </main>
-      );
+
+const Body = () => {
+    return ( 
+        <main className="flex flex-col gap-8  items-center relative z-0">
+            <Navbar/>
+
+            <Intro/>
+            <AboutMe/>
+            {/*<Reviews/>*/}
+
+            <Pricing/>
+            <Portfolio/>
+            <TextMe/>
+
+        </main>
+     );
 }
-export default Body 
+ 
+export default Body;

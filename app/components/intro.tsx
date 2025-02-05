@@ -1,3 +1,4 @@
+'use client'
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import hi from '../../public/giphy.gif'
@@ -7,7 +8,7 @@ const Intro = () => {
     const router=useRouter() 
 
     return ( 
-        <div className="w-full flex flex-col justify-center items-center text-center gap-12 lg:gap-16 my-16 h-[90svh]" id="#">
+        <div className="w-full flex flex-col justify-center items-center text-center gap-12 lg:gap-16 my-16 h-[90svh] lg:my-24" id="#">
             <motion.div  initial={{opacity:0}} animate={{opacity:1}} transition={{delay:1}}
              className="text-2xl lg:text-3xl flex  gap-2 font-semibold lg:w-full w-10/12 justify-center items-center">
                 <h1>Hi there, my name is Shium! </h1><div className="w-[40px] h-[40px]"><Image alt="👋" src={hi} width={100} height={100} unoptimized/></div>
