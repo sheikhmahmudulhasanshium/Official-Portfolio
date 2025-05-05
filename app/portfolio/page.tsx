@@ -12,7 +12,7 @@ const Portfolio = () => {
             <div className="flex flex-col w-7/12 justify-center items-center gap-2 pt-32">
                 <h4 className=" text-lg lg:text-xl font-bold text-slate-950">PORTFOLIO</h4>
                 <h2 className="text-3xl font-extrabold py-2 text-center">Some of my work 🙈</h2>
-                <p className="text-base">Speed + Iterations = near Perfection</p>
+                <p className="text-center text-wrap items-center ">Speed + Iterations = near Perfection</p>
                 <div className="flex justify-center w-6/12 lg:w-8/12  lg:gap-6 gap-8 my-6">
                     <Button 
                         onClick={() => window.location.href = "/#pricing"} 

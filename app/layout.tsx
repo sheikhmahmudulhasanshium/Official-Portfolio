@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import "./globals.css";
 import { GoogleTagManager } from '@next/third-parties/google';
 import ThemeProvider from "@/components/theme-provider";
+import { ClerkProvider } from '@clerk/nextjs';
 
 
 export const metadata: Metadata = {
@@ -33,6 +34,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
+    <ClerkProvider>
+
     <html lang="en" >
       <head>
       <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
@@ -66,5 +69,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <ThemeProvider >{children}</ThemeProvider>
       </body>
     </html>
+  </ClerkProvider>
   );
 }
