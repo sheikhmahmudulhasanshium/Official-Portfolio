@@ -55,6 +55,11 @@ const nextConfig: NextConfig = {
             protocol: 'https',
             hostname: 'stripe.com',
         },
+        {
+            protocol: 'https',
+            hostname: 'github.com',
+        },
+        
     ], 
 },
 };

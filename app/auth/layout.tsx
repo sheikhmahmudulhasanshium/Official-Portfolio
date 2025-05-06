@@ -8,7 +8,7 @@ export default function AuthLayout({
   children: React.ReactNode
 }) {
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
+    <div className='from-cyan-200 bg-gradient-to-l flex min-h-screen justify-center items-center' >
       {/* Children will be the sign-in or sign-up page component */}
       {children}
     </div>
