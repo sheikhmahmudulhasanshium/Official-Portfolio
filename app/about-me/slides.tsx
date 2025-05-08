@@ -1,5 +1,6 @@
 "use client"
-import { PersonalIntroduction } from "@/lib/data";
+import { useFetchInterests } from "@/hooks/interests/get-interests";
+//import { PersonalIntroduction } from "@/lib/data";
 import Card from "./card";
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
@@ -8,7 +9,7 @@ import { useRef } from "react";
 const Slides = () => {
     const ref = useRef(null);
     const isInView = useInView(ref, { once: false });
-
+    const PersonalIntroduction=useFetchInterests().interests
     return ( 
         <div className="flex justify-center items-center w-full  mt-1 lg:w-[45%]">
             <motion.div ref={ref}

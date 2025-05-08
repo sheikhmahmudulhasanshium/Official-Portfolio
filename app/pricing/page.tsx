@@ -1,6 +1,7 @@
 "use client"
 
-import { pricingData } from "@/lib/data";
+import { useFetchServices } from "@/hooks/services/get-services";
+//import { pricingData } from "@/lib/data";
 import Card from "./card";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
@@ -8,7 +9,7 @@ import { useRef } from "react";
 const Pricing = () => {
    const ref = useRef(null);
    const isInView = useInView(ref, { once: false });
-
+   const pricingData=useFetchServices().services
     return ( 
         <div id="pricing" className="flex justify-center items-center w-10/12  rounded-2xl my-12 min-h-[60svh]" ref={ref}>
            <div className="flex flex-wrap  justify-between  lg:gap-4 gap-2 py-12 mx-2">

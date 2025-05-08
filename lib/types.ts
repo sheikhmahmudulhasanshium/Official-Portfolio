@@ -97,3 +97,28 @@ export interface Project {
   createdAt?: string; // Added by timestamps: true
   updatedAt?: string; // Added by timestamps: true
 }
+export interface Interest{
+  _id: string; // Usually added by MongoDB/Mongoose
+  title: string;
+  description: string;
+  icon: string;
+  iconPath: string;
+  position: number;
+
+  createdAt?: string; // Added by timestamps: true
+  updatedAt?: string; // Added by timestamps: true
+
+}
+
+export interface Service{
+  _id: string; // Usually added by MongoDB/Mongoose
+  title: string;
+  description: string;
+  icon: string;
+  iconLink: string;
+  position: number;
+
+  createdAt?: string; // Added by timestamps: true
+  updatedAt?: string; // Added by timestamps: true
+
+}
