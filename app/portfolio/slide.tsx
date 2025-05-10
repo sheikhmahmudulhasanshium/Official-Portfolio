@@ -1,31 +1,33 @@
+// src/components/slides/Slide.tsx
 import { Project } from "@/lib/types";
 import { Button } from "@/components/ui/button";
 import { formatIsoDate } from "@/hooks/format-timeline";
-import { Github, Globe } from "lucide-react";
+import { ExpandIcon, Github, Globe, Scan } from "lucide-react"; // Ensure Scan is imported
 import Image from "next/image";
 import Link from "next/link";
-import { motion, Variants, Transition } from "framer-motion"; // Import Transition type
+import { motion, Variants, Transition, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from "react"; // MODIFIED: Added useEffect
+import ExpandedSlide from "./expanded-slide";
 
 interface SlideProps {
   project: Project;
   index: number;
 }
 
-// --- Animation Variants ---
-
+// --- Animation Variants (Kept as they are) ---
 const containerVariants: Variants = {
-  hidden: { opacity: 0, y: 50, scale: 0 }, // Added scale: 0
+  hidden: { opacity: 0, y: 50, scale: 0.9 }, // Adjusted initial scale
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    scale: 1, // Added scale: 1
+    scale: 1,
     transition: {
-      delay: i * 0.2,
-      duration: 0.6,
+      delay: i * 0.15, // Slightly faster delay
+      duration: 0.5,  // Slightly faster duration
       ease: "easeOut",
       when: "beforeChildren",
-      delayChildren: 0.3,
-      staggerChildren: 0.15,
+      delayChildren: 0.2, // Adjusted
+      staggerChildren: 0.1, // Adjusted
     },
   }),
 };
@@ -37,7 +39,7 @@ const itemVariants: Variants = {
     opacity: 1,
     transition: {
       ease: "easeOut",
-      duration: 0.5,
+      duration: 0.4, // Adjusted
     },
   },
 };
@@ -47,8 +49,8 @@ const tagsContainerVariants: Variants = {
     visible: {
         opacity: 1,
         transition: {
-            staggerChildren: 0.07,
-            delayChildren: 0.1, // This could be relative to parent's delayChildren
+            staggerChildren: 0.05, // Adjusted
+            delayChildren: 0.1,
         },
     },
 }
@@ -67,154 +69,212 @@ const tagItemVariants: Variants = {
     },
 }
 
-// --- Hover Animation ---
 const cardHoverEffect = {
-  scale: 1.03, // Slightly scale up the card
-  // y: -5,    // Optionally lift the card slightly
-  boxShadow: "0px 10px 20px rgba(0, 0, 0, 0.2)", // Add a more pronounced shadow
+  scale: 1.03,
+  boxShadow: "0px 10px 25px rgba(0, 0, 0, 0.25)", // Slightly enhanced shadow
+  transition: { type: "spring", stiffness: 300, damping: 15 }, // Smoother spring
 };
 
-const springTransition: Transition = {
+const iconSwapVariants: Variants = {
+  initial: { opacity: 0, scale: 0.5, rotate: -45 },
+  animate: { opacity: 1, scale: 1, rotate: 0 },
+  exit: { opacity: 0, scale: 0.5, rotate: 45 },
+};
+const iconSwapTransition: Transition = {
   type: "spring",
-  stiffness: 300,
-  damping: 20,
+  stiffness: 400,
+  damping: 15,
+  duration: 0.2,
 };
 
 
 const Slide: React.FC<SlideProps> = ({ project, index }) => {
+  const [isExpandButtonHovered, setIsExpandButtonHovered] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // MODIFIED: Body scroll lock when modal is open
+  useEffect(() => {
+    if (isModalOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+    // Cleanup on component unmount or when isModalOpen changes
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [isModalOpen]);
+
   return (
-    <motion.div
-      className="border border-slate-700 rounded-lg overflow-hidden shadow-lg bg-slate-900/50 cursor-pointer" // Added cursor-pointer
-      custom={index}
-      variants={containerVariants}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.15 }} // Controls when 'visible' is triggered
-      // --- HOVER ANIMATION ADDED HERE ---
-      whileHover={cardHoverEffect}
-      transition={springTransition} // Apply spring to hover scale and other direct transforms
-    >
-      {/* --- Header Section --- */}
+    <>
       <motion.div
-        className="bg-slate-800 p-4 text-white flex justify-between items-start"
-        variants={itemVariants} // This will inherit timing from container's visible.transition
+        className="border border-slate-700 rounded-lg overflow-hidden shadow-lg bg-slate-900/50 flex flex-col group"
+        custom={index}
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.15 }}
+        whileHover={cardHoverEffect}
       >
-        <div className="flex gap-4 items-center">
-          {/*
-            Note: This inner motion.div with itemVariants might be redundant if the parent
-            motion.div (Header Section) already handles staggering for its direct children.
-            However, it's fine if you want to animate the image icon separately from the text block.
-            If the intention is for the Image and the text block (title/subtitle/date) to animate
-            as a single "item", then only the parent Header Section needs itemVariants.
-            If Image is one item and text block is another, this structure is fine with stagger.
-            For simplicity, I'll assume this nested itemVariants is intentional for the icon.
-          */}
-          <motion.div variants={itemVariants}>
-            <Image
-              src={project.iconUrl}
-              alt={`${project.title} icon`}
-              width={40}
-              height={40}
-              className="border-white bg-white border rounded-full"
-            />
-          </motion.div>
-          {/*
-            If the text block (title/subtitle & date) should animate as one unit after the icon,
-            it could also be wrapped in a motion.div with itemVariants.
-            Or, if the entire header content (icon + text block) is one item, then the
-            outermost motion.div for "Header Section" is enough.
-            Given the current setup, the "Header Section" motion.div acts as an item, and its
-            children (the flex container and the status p-tag) will appear once it animates.
-            The icon inside the flex container will then also animate based on itemVariants.
-          */}
-          <div className="flex flex-col">
-            <p className="text-xl font-sans">
-              {project.title}{" "}
-              <span className="text-slate-400">{project.subtitle}</span>
-            </p>
-            <p className="text-sm text-slate-300">
-              {formatIsoDate(project.timeline.start_date)}
-            </p>
-          </div>
-        </div>
-        {/*
-          The status <p> tag is a direct child of the "Header Section" motion.div.
-          If you want it to animate independently with itemVariants, it should also be
-          wrapped in a motion.div. Otherwise, it will appear as part of the "Header Section"
-          animation if itemVariants is applied to the "Header Section" motion.div.
-          Given the `staggerChildren` on containerVariants, the "Header Section" motion.div
-          will animate first.
-        */}
-        <p
-          className={`font-medium font-mono text-sm px-2 py-1 rounded ${
-            ({
-              done: "bg-green-900/80 text-green-300",
-              ongoing: "bg-blue-900/80 text-blue-300",
-              start: "bg-yellow-900/80 text-yellow-300",
-              canceled: "bg-red-900/80 text-red-300",
-              upcoming: "bg-purple-900/80 text-purple-300",
-            }[project.status] ?? "bg-gray-700/80 text-gray-300")
-          }`}
+        {/* --- Header Section --- */}
+        <motion.div
+          className="bg-slate-800 p-4 text-white flex justify-between items-start"
+          variants={itemVariants}
         >
-          {project.status}
-        </p>
-      </motion.div>
-
-      {/* --- Description Section --- */}
-      <motion.p
-        className="text-sm font-light m-4 text-slate-300 text-wrap"
-        variants={itemVariants}
-      >
-        {project.description}
-      </motion.p>
-
-      {/* --- Technologies Section --- */}
-       <motion.div
-        className="flex flex-wrap gap-2 pb-4 px-4"
-        variants={tagsContainerVariants} // This will animate its children (tags)
-      >
-        {project.technologies.map((tech, techIndex) => (
-          <motion.div
-            className="text-xs font-mono border border-slate-600 text-lime-900 p-1 px-2 rounded-full" // Note: text-lime-900 might be hard to see on dark bg. Consider text-lime-300 or similar.
-            key={techIndex}
-            variants={tagItemVariants}
+          <div className="flex gap-4 items-center min-w-0">
+            {project.iconUrl && (
+              <motion.div variants={itemVariants}>
+                <Image
+                  src={project.iconUrl}
+                  alt={`${project.title} icon`}
+                  width={40}
+                  height={40}
+                  className="border-white bg-white border rounded-full p-0.5 object-contain flex-shrink-0"
+                />
+              </motion.div>
+            )}
+            <div className="flex flex-col min-w-0">
+              <p className="text-xl font-sans truncate">
+                {project.title}{" "}
+                {project.subtitle && <span className="text-slate-400">{project.subtitle}</span>}
+              </p>
+              <p className="text-sm text-slate-300">
+                {formatIsoDate(project.timeline.start_date)}
+              </p>
+            </div>
+          </div>
+          <p
+            className={`font-medium font-mono text-xs sm:text-sm px-2 py-1 rounded flex-shrink-0 ${
+              ({
+                done: "bg-green-900/80 text-green-300",
+                ongoing: "bg-blue-900/80 text-blue-300",
+                start: "bg-yellow-900/80 text-yellow-300",
+                canceled: "bg-red-900/80 text-red-300",
+                upcoming: "bg-purple-900/80 text-purple-300",
+              }[project.status.toLowerCase()] ?? "bg-gray-700/80 text-gray-300")
+            }`}
           >
-            {tech}
+            {project.status}
+          </p>
+        </motion.div>
+
+        {/* --- Description Section --- */}
+        <motion.p
+          className="text-sm font-light m-4 text-slate-300 text-wrap flex-grow line-clamp-4"
+          variants={itemVariants}
+        >
+          {project.description}
+        </motion.p>
+
+        {/* --- Technologies Section --- */}
+        {project.technologies && project.technologies.length > 0 && (
+          <motion.div
+            className="flex flex-wrap gap-2 pb-4 px-4"
+            variants={tagsContainerVariants}
+          >
+            {project.technologies.slice(0, 5).map((tech, techIndex) => (
+              <motion.div
+                className="text-xs font-mono border border-slate-600 text-lime-300 bg-lime-900/30 p-1 px-2 rounded-full"
+                key={techIndex}
+                variants={tagItemVariants}
+              >
+                {tech}
+              </motion.div>
+            ))}
+            {project.technologies.length > 5 && (
+              <motion.div 
+                className="text-xs font-mono text-slate-400 p-1 px-2"
+                variants={tagItemVariants}
+              >
+                + {project.technologies.length - 5} more
+              </motion.div>
+            )}
           </motion.div>
-        ))}
+        )}
+
+
+        {/* --- Links/Buttons Section --- */}
+        <motion.div
+          className="flex w-full justify-between items-center gap-2 mt-auto pb-4 px-4 border-t border-slate-800 pt-4"
+          variants={itemVariants}
+        >
+          <div className="flex gap-2">
+            {project.repoUrl && (
+              <Link href={project.repoUrl} target="_blank" rel="noopener noreferrer" passHref legacyBehavior>
+                <motion.a
+                  whileHover={{ scale: 1.1, y: -2 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                  aria-label={`${project.title} Github Repository`}
+                >
+                  <Button size={"icon"} variant="default" className="text-slate-300 border-slate-600 hover:bg-slate-700 hover:text-white">
+                    <Github />
+                  </Button>
+                </motion.a>
+              </Link>
+            )}
+            {project.liveUrl && (
+              <Link href={project.liveUrl} target="_blank" rel="noopener noreferrer" passHref legacyBehavior>
+                 <motion.a
+                  whileHover={{ scale: 1.1, y: -2 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                  aria-label={`${project.title} Live Demo`}
+                >
+                  <Button size={"icon"} variant="default" className="text-slate-300 border-slate-600 hover:bg-slate-700 hover:text-white">
+                    <Globe />
+                  </Button>
+                </motion.a>
+              </Link>
+            )}
+          </div>
+
+          {/* MODIFIED: Expand Button directly triggers modal */}
+          <Button
+            variant="ghost"
+            size="icon"
+            className="text-slate-300 hover:bg-slate-700 hover:text-white relative overflow-hidden w-9 h-9"
+            onMouseEnter={() => setIsExpandButtonHovered(true)}
+            onMouseLeave={() => setIsExpandButtonHovered(false)}
+            onClick={() => setIsModalOpen(true)} // Set state to open modal
+            aria-label="Expand project details"
+          >
+            <AnimatePresence mode="wait" initial={false}>
+              {isExpandButtonHovered || isModalOpen ? ( // Icon changes on hover or if modal is open
+                <motion.div
+                  key="scan"
+                  variants={iconSwapVariants}
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
+                  transition={iconSwapTransition}
+                  className="absolute inset-0 flex items-center justify-center"
+                >
+                  <Scan size={20} />
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="expand"
+                  variants={iconSwapVariants}
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
+                  transition={iconSwapTransition}
+                  className="absolute inset-0 flex items-center justify-center"
+                >
+                  <ExpandIcon size={20} />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </Button>
+        </motion.div>
       </motion.div>
 
-      {/* --- Links/Buttons Section --- */}
-      <motion.div
-        className="flex w-auto gap-2 items-start pb-4 px-4"
-        variants={itemVariants} // This div itself will animate as an item
-      >
-        {project.repoUrl && (
-          <Link href={project.repoUrl} target="_blank" rel="noopener noreferrer" passHref legacyBehavior>
-            <motion.a // Make the <a> tag motion-aware for individual hover on button
-              whileHover={{ scale: 1.1, y: -2 }}
-              transition={{ type: "spring", stiffness: 400, damping: 10 }}
-            >
-              <Button size={"icon"} variant="default" className="text-slate-300 border-slate-600 hover:bg-slate-700 hover:text-white">
-                <Github />
-              </Button>
-            </motion.a>
-          </Link>
+      {/* MODIFIED: Modal rendered here, controlled by AnimatePresence */}
+      <AnimatePresence>
+        {isModalOpen && (
+          <ExpandedSlide project={project} onClose={() => setIsModalOpen(false)} />
         )}
-        {project.liveUrl && (
-          <Link href={project.liveUrl} target="_blank" rel="noopener noreferrer" passHref legacyBehavior>
-             <motion.a // Make the <a> tag motion-aware
-              whileHover={{ scale: 1.1, y: -2 }}
-              transition={{ type: "spring", stiffness: 400, damping: 10 }}
-            >
-              <Button size={"icon"} variant="default" className="text-slate-300 border-slate-600 hover:bg-slate-700 hover:text-white">
-                <Globe />
-              </Button>
-            </motion.a>
-          </Link>
-        )}
-      </motion.div>
-    </motion.div>
+      </AnimatePresence>
+    </>
   );
 };
 

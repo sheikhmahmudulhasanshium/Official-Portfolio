@@ -59,7 +59,14 @@ const nextConfig: NextConfig = {
             protocol: 'https',
             hostname: 'github.com',
         },
-        
+        {
+            protocol: 'https',
+            hostname: 'iamshium.vercel.app',
+        },
+        {
+            protocol: 'https',
+            hostname: 'www.figma.com',
+        },
     ], 
 },
 };
