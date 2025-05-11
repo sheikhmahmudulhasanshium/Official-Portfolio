@@ -1,18 +1,25 @@
-// components/editor/EditorNavigation.tsx
 import React from 'react';
 import { Button } from "@/components/ui/button";
-import { EditorNavigationProps, EditorSection } from '@/lib/types';
+
+// This is the source of truth for EditorSection.
+// hooks/editor-page-logic.ts MUST import and use this type.
+export type EditorSection = 'profile' | 'projects' | 'interests' | 'debug' | 'education' | 'services';
+
+export interface EditorNavigationProps {
+    activeSection: EditorSection;
+    setActiveSection: (section: EditorSection) => void;
+}
 
 export const EditorNavigation: React.FC<EditorNavigationProps> = ({
   activeSection,
   setActiveSection,
 }) => {
   const sections: { id: EditorSection; label: string; debug?: boolean }[] = [
-    
-    { id: 'profile', label: 'Profile' },
+    { id: 'profile', label: 'Dashboard' },
     { id: 'projects', label: 'Projects' },
     { id: 'interests', label: 'Interests' },
-    // Add more sections here
+    { id: 'services', label: 'Services' },
+    { id: 'education', label: 'Education' },
     { id: 'debug', label: 'Debug/Status', debug: true },
   ];
 

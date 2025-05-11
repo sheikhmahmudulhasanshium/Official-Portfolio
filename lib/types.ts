@@ -45,7 +45,6 @@ techStack?: { name: string; logoUrl: string }[]; // Updated to include name and 
 import type { UserResource } from '@clerk/types';
 
 // Define the possible sections the editor can display
-export type EditorSection = 'profile' | 'projects' | 'interests' | 'debug';
 
 // Define a stricter interface for the expected JWT payload
 export interface JwtPayload {
@@ -69,10 +68,7 @@ export interface DebugInfoProps {
   decodedManualToken: JwtPayload | null;
 }
 
-export interface EditorNavigationProps {
-    activeSection: EditorSection;
-    setActiveSection: (section: EditorSection) => void;
-}
+
 // src/types/project.ts (or wherever you keep frontend types)
 
 // Type matching the expected data structure from the /projects endpoint
@@ -122,3 +118,60 @@ export interface Service{
   updatedAt?: string; // Added by timestamps: true
 
 }
+
+export interface Award {
+  name: string;
+  description: string;
+  issuer: string;
+  year: string; // Or number, if it's always a numeric year
+  mediaUrls?: string[]; // Optional, as it might not always be present or could be empty
+}
+
+export interface Activities {
+  awards?: Award[]; // Optional, as not all education entries might have awards
+  // You could add other activity types here if they exist, e.g., publications, projects, etc.
+}
+
+export interface Education {
+  _id: string;
+  degree: string;
+  institute: string;
+  startDate: string; // Or Date if you plan to parse it immediately
+  endDate: string;   // Or Date
+  result: string;
+  isCurrent: boolean;
+  logoUrl?: string;   // Optional, as it might not always be provided
+  displayOrder: number;
+  createdAt: string; // Or Date
+  updatedAt: string; // Or Date
+  __v: number;
+
+  // Fields that are not present in all objects, hence optional:
+  field?: string;
+  domain?: string;
+  group?: string;
+  activities?: Activities;
+}
+
+// src/types/project.types.ts (or a similar shared location)
+
+// This should match your CreateProjectDto structure
+export interface CreateProjectPayload {
+  title: string;
+  subtitle?: string; // Optional based on your DTO
+  description: string;
+  technologies: string[];
+  repoUrl: string;
+  liveUrl: string;
+  previewImageUrls: string[];
+  iconUrl: string;
+  featured: boolean;
+  keywords?: string[];
+  timeline: {
+    start_date: string; // Assuming ISO date string
+    end_date: string;   // Assuming ISO date string
+  };
+  isUpcoming: boolean;
+  status: 'start' | 'ongoing' | 'done' | 'canceled' | 'upcoming';
+}
+

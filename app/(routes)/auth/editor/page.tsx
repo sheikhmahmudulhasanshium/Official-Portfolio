@@ -1,16 +1,17 @@
-// app/auth/editor/page.tsx
 'use client';
 
 import React from 'react';
 import { UserButton } from "@clerk/nextjs";
-import { ProfileEditor } from './components/profile';
+import  ProfileEditor  from './components/profile';
 import { ProjectEditor } from './components/projects';
-import { InterestEditor } from './components/interests';
+import  InterestEditor  from './components/interests';
 import { DebugInfo } from './components/token';
-import { EditorNavigation } from './components/navbar';
-import { useEditorPageLogic } from '@/hooks/editor-page-logic';
+import { EditorNavigation } from './components/navbar'; // This component defines the source EditorSection type
+import { useEditorPageLogic } from '@/hooks/editor-page-logic'; // This hook MUST use the EditorSection type from navbar.tsx
 import Footer from './components/footer';
-
+import ServiceEditor from './components/services';
+import EducationEditor from './components/education';
+// import EducationEditor from './components/education'; // You would create and import this
 
 export default function EditorPage() {
   // Use the custom hook to get all logic and state
@@ -25,8 +26,8 @@ export default function EditorPage() {
     manualTokenStatus,
     manualTokenError,
     handleGetManualToken,
-    activeSection,
-    setActiveSection,
+    activeSection,     // This activeSection's type must match EditorNavigationProps.activeSection
+    setActiveSection,  // This setActiveSection's type must match EditorNavigationProps.setActiveSection
   } = useEditorPageLogic();
 
   // --- Loading and Auth States ---
@@ -39,6 +40,7 @@ export default function EditorPage() {
 
   // --- Render Function to select active component ---
   const renderActiveSection = () => {
+    // The type of `activeSection` (from useEditorPageLogic) must allow these cases
     switch (activeSection) {
       case 'profile':
         return <ProfileEditor user={user} />;
@@ -46,6 +48,11 @@ export default function EditorPage() {
         return <ProjectEditor />;
       case 'interests':
         return <InterestEditor />;
+      case 'services':
+        return <ServiceEditor />;
+      case 'education':
+        // return <EducationEditor />; // Replace with your actual EducationEditor component
+        return <EducationEditor/>;
       case 'debug':
         return (
           <DebugInfo
@@ -60,6 +67,7 @@ export default function EditorPage() {
         );
       default:
         // Optional: Handle unknown section or default to profile
+        // const _exhaustiveCheck: never = activeSection; // For exhaustive checks if all cases are handled
         return <ProfileEditor user={user} />;
     }
   };
@@ -79,7 +87,7 @@ export default function EditorPage() {
         {/* Sidebar Navigation */}
         <EditorNavigation
             activeSection={activeSection}
-            setActiveSection={setActiveSection}
+            setActiveSection={setActiveSection} // The type of this prop must be compatible
         />
 
         {/* Content Area based on activeSection */}

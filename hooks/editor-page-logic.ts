@@ -2,6 +2,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useAuth, useUser } from '@clerk/nextjs';
 import { jwtDecode } from 'jwt-decode';
+import { EditorSection } from '@/app/(routes)/auth/editor/components/navbar';
 
 // Define a stricter interface for the expected JWT payload (can be shared or defined here)
 interface JwtPayload {
@@ -11,7 +12,6 @@ interface JwtPayload {
 }
 
 // Define the possible sections the editor can display (can be shared or defined here)
-export type EditorSection = 'profile' | 'projects' | 'interests' | 'debug';
 
 export const useEditorPageLogic = () => {
   const { isLoaded, isSignedIn, getToken } = useAuth();
