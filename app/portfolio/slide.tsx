@@ -1,3 +1,5 @@
+"use client";
+
 // src/components/slides/Slide.tsx
 import { Project } from "@/lib/types";
 import { Button } from "@/components/ui/button";
@@ -6,7 +8,7 @@ import { ExpandIcon, Github, Globe, Scan } from "lucide-react"; // Ensure Scan i
 import Image from "next/image";
 import Link from "next/link";
 import { motion, Variants, Transition, AnimatePresence } from "framer-motion";
-import { useState, useEffect } from "react"; // MODIFIED: Added useEffect
+import { useState, useEffect } from "react";
 import ExpandedSlide from "./expanded-slide";
 
 interface SlideProps {
@@ -23,7 +25,7 @@ const containerVariants: Variants = {
     scale: 1,
     transition: {
       delay: i * 0.15, // Slightly faster delay
-      duration: 0.5,  // Slightly faster duration
+      duration: 0.5, // Slightly faster duration
       ease: "easeOut",
       when: "beforeChildren",
       delayChildren: 0.2, // Adjusted
@@ -45,35 +47,36 @@ const itemVariants: Variants = {
 };
 
 const tagsContainerVariants: Variants = {
-    hidden: { opacity: 0 },
-    visible: {
-        opacity: 1,
-        transition: {
-            staggerChildren: 0.05, // Adjusted
-            delayChildren: 0.1,
-        },
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.05, // Adjusted
+      delayChildren: 0.1,
     },
-}
+  },
+};
 
 const tagItemVariants: Variants = {
-    hidden: { scale: 0.5, opacity: 0, y: 10 },
-    visible: {
-        scale: 1,
-        opacity: 1,
-        y: 0,
-        transition: {
-            type: "spring",
-            stiffness: 260,
-            damping: 15,
-        }
+  hidden: { scale: 0.5, opacity: 0, y: 10 },
+  visible: {
+    scale: 1,
+    opacity: 1,
+    y: 0,
+    transition: {
+      type: "spring",
+      stiffness: 260,
+      damping: 15,
     },
-}
+  },
+};
 
+// FIX APPLIED HERE: Added 'as const' to ensure correct type inference for Framer Motion
 const cardHoverEffect = {
   scale: 1.03,
   boxShadow: "0px 10px 25px rgba(0, 0, 0, 0.25)", // Slightly enhanced shadow
   transition: { type: "spring", stiffness: 300, damping: 15 }, // Smoother spring
-};
+} as const;
 
 const iconSwapVariants: Variants = {
   initial: { opacity: 0, scale: 0.5, rotate: -45 },
@@ -87,21 +90,20 @@ const iconSwapTransition: Transition = {
   duration: 0.2,
 };
 
-
 const Slide: React.FC<SlideProps> = ({ project, index }) => {
   const [isExpandButtonHovered, setIsExpandButtonHovered] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // MODIFIED: Body scroll lock when modal is open
+  // Body scroll lock when modal is open
   useEffect(() => {
     if (isModalOpen) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = 'auto';
+      document.body.style.overflow = "auto";
     }
     // Cleanup on component unmount or when isModalOpen changes
     return () => {
-      document.body.style.overflow = 'auto';
+      document.body.style.overflow = "auto";
     };
   }, [isModalOpen]);
 
@@ -114,7 +116,7 @@ const Slide: React.FC<SlideProps> = ({ project, index }) => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.15 }}
-        whileHover={cardHoverEffect}
+        whileHover={cardHoverEffect} // This line will now work correctly
       >
         {/* --- Header Section --- */}
         <motion.div
@@ -136,7 +138,9 @@ const Slide: React.FC<SlideProps> = ({ project, index }) => {
             <div className="flex flex-col min-w-0">
               <p className="text-xl font-sans truncate">
                 {project.title}{" "}
-                {project.subtitle && <span className="text-slate-400">{project.subtitle}</span>}
+                {project.subtitle && (
+                  <span className="text-slate-400">{project.subtitle}</span>
+                )}
               </p>
               <p className="text-sm text-slate-300">
                 {formatIsoDate(project.timeline.start_date)}
@@ -182,7 +186,7 @@ const Slide: React.FC<SlideProps> = ({ project, index }) => {
               </motion.div>
             ))}
             {project.technologies.length > 5 && (
-              <motion.div 
+              <motion.div
                 className="text-xs font-mono text-slate-400 p-1 px-2"
                 variants={tagItemVariants}
               >
@@ -192,7 +196,6 @@ const Slide: React.FC<SlideProps> = ({ project, index }) => {
           </motion.div>
         )}
 
-
         {/* --- Links/Buttons Section --- */}
         <motion.div
           className="flex w-full justify-between items-center gap-2 mt-auto pb-4 px-4 border-t border-slate-800 pt-4"
@@ -200,26 +203,46 @@ const Slide: React.FC<SlideProps> = ({ project, index }) => {
         >
           <div className="flex gap-2">
             {project.repoUrl && (
-              <Link href={project.repoUrl} target="_blank" rel="noopener noreferrer" passHref legacyBehavior>
+              <Link
+                href={project.repoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                passHref
+                legacyBehavior
+              >
                 <motion.a
                   whileHover={{ scale: 1.1, y: -2 }}
                   transition={{ type: "spring", stiffness: 400, damping: 10 }}
                   aria-label={`${project.title} Github Repository`}
                 >
-                  <Button size={"icon"} variant="default" className="text-slate-300 border-slate-600 hover:bg-slate-700 hover:text-white">
+                  <Button
+                    size={"icon"}
+                    variant="default"
+                    className="text-slate-300 border-slate-600 hover:bg-slate-700 hover:text-white"
+                  >
                     <Github />
                   </Button>
                 </motion.a>
               </Link>
             )}
             {project.liveUrl && (
-              <Link href={project.liveUrl} target="_blank" rel="noopener noreferrer" passHref legacyBehavior>
-                 <motion.a
+              <Link
+                href={project.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                passHref
+                legacyBehavior
+              >
+                <motion.a
                   whileHover={{ scale: 1.1, y: -2 }}
                   transition={{ type: "spring", stiffness: 400, damping: 10 }}
                   aria-label={`${project.title} Live Demo`}
                 >
-                  <Button size={"icon"} variant="default" className="text-slate-300 border-slate-600 hover:bg-slate-700 hover:text-white">
+                  <Button
+                    size={"icon"}
+                    variant="default"
+                    className="text-slate-300 border-slate-600 hover:bg-slate-700 hover:text-white"
+                  >
                     <Globe />
                   </Button>
                 </motion.a>
@@ -227,7 +250,7 @@ const Slide: React.FC<SlideProps> = ({ project, index }) => {
             )}
           </div>
 
-          {/* MODIFIED: Expand Button directly triggers modal */}
+          {/* Expand Button directly triggers modal */}
           <Button
             variant="ghost"
             size="icon"
@@ -268,10 +291,13 @@ const Slide: React.FC<SlideProps> = ({ project, index }) => {
         </motion.div>
       </motion.div>
 
-      {/* MODIFIED: Modal rendered here, controlled by AnimatePresence */}
+      {/* Modal rendered here, controlled by AnimatePresence */}
       <AnimatePresence>
         {isModalOpen && (
-          <ExpandedSlide project={project} onClose={() => setIsModalOpen(false)} />
+          <ExpandedSlide
+            project={project}
+            onClose={() => setIsModalOpen(false)}
+          />
         )}
       </AnimatePresence>
     </>

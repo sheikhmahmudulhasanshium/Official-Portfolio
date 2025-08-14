@@ -1,4 +1,5 @@
-// src/components/slides/ExpandedSlide.tsx
+// /app/portfolio/expanded-slide.tsx
+
 import { Project } from "@/lib/types";
 import Image from "next/image";
 import Link from "next/link";
@@ -6,27 +7,27 @@ import { Button } from "@/components/ui/button";
 import { XIcon, Globe, Github, ChevronLeft, ChevronRight } from "lucide-react";
 import { formatIsoDate } from "@/hooks/format-timeline";
 import { cn } from "@/lib/utils";
-import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useState, useCallback } from "react";
+import { motion, AnimatePresence, Variants } from "framer-motion";
+import React, { useEffect, useState, useCallback } from "react";
 
 interface ExpandedSlideProps {
   project: Project;
   onClose: () => void;
 }
 
-const modalOverlayVariants = {
+const modalOverlayVariants: Variants = {
   hidden: { opacity: 0 },
   visible: { opacity: 1, transition: { duration: 0.2 } },
   exit: { opacity: 0, transition: { duration: 0.2, delay: 0.1 } },
 };
 
-const modalPanelVariants = {
-  hidden: { opacity: 0, scale: 0.90, y: "5%" },
+const modalPanelVariants: Variants = {
+  hidden: { opacity: 0, scale: 0.9, y: "5%" },
   visible: { opacity: 1, scale: 1, y: "0%", transition: { type: "spring", stiffness: 300, damping: 30, duration: 0.3 } },
-  exit: { opacity: 0, scale: 0.90, y: "5%", transition: { duration: 0.2, ease: "easeIn" } },
+  exit: { opacity: 0, scale: 0.9, y: "5%", transition: { duration: 0.2, ease: "easeIn" } },
 };
 
-const imageVariants = {
+const imageVariants: Variants = {
   enter: (direction: number) => ({
     x: direction > 0 ? "100%" : "-100%",
     opacity: 0,
@@ -108,7 +109,7 @@ const ExpandedSlide: React.FC<ExpandedSlideProps> = ({ project, onClose }) => {
           "relative"
         )}
         variants={modalPanelVariants}
-        onClick={(e) => e.stopPropagation()}
+        onClick={(e: React.MouseEvent<HTMLDivElement>) => e.stopPropagation()}
       >
         <Button
           variant="ghost"
@@ -117,7 +118,7 @@ const ExpandedSlide: React.FC<ExpandedSlideProps> = ({ project, onClose }) => {
           className={cn("absolute top-2 right-2 sm:top-3 sm:right-3 text-slate-400 hover:text-white z-50")}
           aria-label="Close project details"
         >
-          <XIcon size={24} /> {/* Keep size prop for non-responsive icons or use className */}
+          <XIcon size={24} />
         </Button>
 
         <div className={cn("flex items-start gap-3 sm:gap-4 p-3 sm:p-6 border-b border-slate-800 flex-shrink-0")}>
@@ -161,6 +162,7 @@ const ExpandedSlide: React.FC<ExpandedSlideProps> = ({ project, onClose }) => {
             "flex-grow overflow-y-auto p-3 sm:p-6 space-y-4 sm:space-y-6",
             "scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-slate-800/50"
         )}>
+          {/* THIS IS THE RESTORED SECTION FOR THE IMAGE SLIDER */}
           {images && images.length > 0 && (
             <div className={cn("mb-4 sm:mb-6 rounded-lg overflow-hidden shadow-xl aspect-video relative bg-slate-800 group")}>
               <AnimatePresence initial={false} custom={direction}>
@@ -192,23 +194,18 @@ const ExpandedSlide: React.FC<ExpandedSlideProps> = ({ project, onClose }) => {
                 <>
                   <Button
                     variant="ghost"
-                    size="icon" // Keep this for the button's padding/shape if needed
+                    size="icon"
                     onClick={(e) => { e.stopPropagation(); paginate(-1); }}
                     className={cn(
                         "absolute top-1/2 left-1 sm:left-2 -translate-y-1/2 z-20 text-white",
                         "bg-black/30 hover:bg-black/50",
                         "opacity-60 hover:!opacity-90 group-hover:opacity-80",
                         "transition-all duration-200 ease-in-out",
-                        "rounded-full w-8 h-8 sm:w-9 sm:h-9 p-1" // Ensure button padding is consistent for icon
+                        "rounded-full w-8 h-8 sm:w-9 sm:h-9 p-1"
                         )}
                     aria-label="Previous image"
                   >
-                    {/* MODIFIED: Use className for responsive sizing */}
                     <ChevronLeft className="w-5 h-5 sm:w-5 sm:h-5" />
-                    {/* Alternatively, if size prop is preferred and you handle responsiveness outside:
-                        <ChevronLeft size={window.innerWidth < 640 ? 18 : 20} />
-                        This is less ideal due to potential SSR issues and direct DOM reads.
-                    */}
                   </Button>
                   <Button
                     variant="ghost"
@@ -223,7 +220,6 @@ const ExpandedSlide: React.FC<ExpandedSlideProps> = ({ project, onClose }) => {
                         )}
                     aria-label="Next image"
                   >
-                    {/* MODIFIED: Use className for responsive sizing */}
                     <ChevronRight className="w-5 h-5 sm:w-5 sm:h-5" />
                   </Button>
                   <div className={cn(
@@ -291,12 +287,12 @@ const ExpandedSlide: React.FC<ExpandedSlideProps> = ({ project, onClose }) => {
             )}
         </div>
 
+        {/* THIS IS THE RESTORED SECTION FOR THE ACTION BUTTONS */}
         <div className={cn("mt-auto p-3 sm:p-6 flex flex-col sm:flex-row gap-2 sm:gap-3 justify-end border-t border-slate-800 flex-shrink-0")}>
            {project.liveUrl && (
             <Link href={project.liveUrl} target="_blank" rel="noopener noreferrer" passHref legacyBehavior>
               <Button asChild variant="outline" className={cn("w-full sm:w-auto border-lime-500 text-lime-500 hover:bg-lime-500 hover:text-slate-900 text-xs sm:text-sm py-1.5 sm:py-2")}>
                 <a>
-                  {/* MODIFIED: Use className for responsive sizing */}
                   <Globe className="mr-1.5 sm:mr-2 w-4 h-4 sm:w-[18px] sm:h-[18px]" /> Live Demo / API
                 </a>
               </Button>
@@ -306,7 +302,6 @@ const ExpandedSlide: React.FC<ExpandedSlideProps> = ({ project, onClose }) => {
             <Link href={project.repoUrl} target="_blank" rel="noopener noreferrer" passHref legacyBehavior>
               <Button asChild variant="outline" className={cn("w-full sm:w-auto border-slate-500 text-slate-300 hover:bg-slate-500 hover:text-slate-900 text-xs sm:text-sm py-1.5 sm:py-2")}>
                 <a>
-                  {/* MODIFIED: Use className for responsive sizing */}
                   <Github className="mr-1.5 sm:mr-2 w-4 h-4 sm:w-[18px] sm:h-[18px]" /> Source Code
                 </a>
               </Button>

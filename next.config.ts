@@ -67,8 +67,13 @@ const nextConfig: NextConfig = {
             protocol: 'https',
             hostname: 'www.figma.com',
         },
+        // This is the correct way to handle dynamic subdomains
+        {
+            protocol: 'https',
+            hostname: '*.ufs.sh',
+        },
     ], 
-},
+  },
 };
 
 export default nextConfig;
